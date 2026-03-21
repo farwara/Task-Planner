@@ -67,7 +67,7 @@ Installation Guide
 
 1. Clone the repository
 
-git clone https://github.com/YOUR_GITHUB_USERNAME/task-planner.git
+git clone https://github.com/farwara/Task-Planner.git
 
 
 
