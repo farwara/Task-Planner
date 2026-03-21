@@ -395,7 +395,19 @@ Example:
 
 --------------------------------------------------
 
+Limitations
 
+- No pagination for large task lists
+- No user profile management
+- No task deadlines or priorities
+- Limited error handling feedback
+
+Future Improvements
+
+- Add task deadlines and priority levels
+- Implement pagination for better performance
+- Improve UI/UX design
+- Add user profile and settings page
 
 Author
 
