@@ -376,9 +376,8 @@ These components are reused across multiple pages to maintain consistency.
 Screenshots
 
 
-
-(Add screenshots here for the teacher)
-
+## Dashboard 
+![Dashboard](./screenshots/dashboard.png)
 
 
 Example:
