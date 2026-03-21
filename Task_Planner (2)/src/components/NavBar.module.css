@@ -1,0 +1,49 @@
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--nav-bg);
+  border-bottom: 1px solid var(--border);
+}
+
+.inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.brand {
+  font-weight: 700;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.link {
+  color: var(--text);
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 10px;
+}
+
+.link:hover,
+.linkActive {
+  background: var(--chip-bg);
+}
+
+.user {
+  opacity: 0.9;
+  font-size: 0.95rem;
+}
+
+.logout {
+  border: 1px solid var(--border);
+  background: var(--button-bg);
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+}

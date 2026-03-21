@@ -1,0 +1,49 @@
+.container {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 26px 16px;
+}
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px;
+  display: grid;
+  gap: 12px;
+}
+
+.title {
+  margin: 0 0 6px;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+}
+
+.input {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: var(--input-bg);
+  color: var(--text);
+}
+
+.button {
+  border: 1px solid var(--border);
+  background: var(--button-bg);
+  color: var(--text);
+  padding: 10px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.error {
+  color: var(--danger-text);
+}
+
+.hint {
+  font-size: 0.95rem;
+  opacity: 0.85;
+}
