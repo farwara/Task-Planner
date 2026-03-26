@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import FormField from "../components/common/FormField";
+import Button from "../components/common/Button";
+import ErrorMessage from "../components/common/ErrorMessage";
 import styles from "./AuthForm.module.css";
 
 function Login() {
@@ -10,61 +13,61 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   async function handleSubmit(e) {
     e.preventDefault();
     setError("");
 
     try {
+      setIsSubmitting(true);
       await login(email, password);
       navigate("/dashboard");
-    } catch (err) {
-      setError(err.message || "Login failed");
+    } catch  {
+      setError("Invalid email or password");
+    } finally {
+      setIsSubmitting(false);
     }
   }
 
   return (
-    <main className={styles.container}>
-      <section className={styles.card}>
-        <h1 className={styles.title}>Login</h1>
+      <main className={styles.container}>
+        <section className={styles.card}>
+          <h1 className={styles.title}>Login</h1>
 
-        {error && <p className={styles.error}>{error}</p>}
+          <ErrorMessage message={error} />
 
-        <form onSubmit={handleSubmit}>
-          <div className={styles.field}>
-            <label htmlFor="email">Email</label>
-            <input
-              id="email"
-              className={styles.input}
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
+          <form onSubmit={handleSubmit}>
+            <FormField
+                label="Email"
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                disabled={isSubmitting}
             />
-          </div>
 
-          <div className={styles.field}>
-            <label htmlFor="password">Password</label>
-            <input
-              id="password"
-              className={styles.input}
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
+            <FormField
+                label="Password"
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                disabled={isSubmitting}
             />
-          </div>
 
-          <button className={styles.button} type="submit">
-            Login
-          </button>
-        </form>
+            <Button type="submit" disabled={isSubmitting}>
+              {isSubmitting ? "Logging in..." : "Login"}
+            </Button>
+          </form>
 
-        <p className={styles.hint}>
-          No account? <Link to="/register">Register</Link>
-        </p>
-      </section>
-    </main>
+          <p className={styles.hint}>
+            No account? <Link to="/register">Register</Link>
+          </p>
+        </section>
+      </main>
   );
 }
 

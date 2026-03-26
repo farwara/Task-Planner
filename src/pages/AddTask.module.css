@@ -49,3 +49,13 @@
 .error {
   color: var(--danger-text);
 }
+
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+  }
+
+  .card {
+    padding: 16px;
+  }
+}

@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { apiFetch } from "../api/api";
+import FormField from "../components/common/FormField";
+import Button from "../components/common/Button";
+import ErrorMessage from "../components/common/ErrorMessage";
 import styles from "./AddTask.module.css";
 
 export default function AddTask() {
@@ -8,12 +11,15 @@ export default function AddTask() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   async function handleSubmit(e) {
     e.preventDefault();
     setError("");
 
     try {
+      setIsSubmitting(true);
+
       await apiFetch("/api/tasks", {
         method: "POST",
         body: JSON.stringify({
@@ -26,44 +32,45 @@ export default function AddTask() {
       navigate("/dashboard");
     } catch (err) {
       setError(err.message || "Failed to add task");
+    } finally {
+      setIsSubmitting(false);
     }
   }
 
   return (
-    <main className={styles.container}>
-      <h1 className={styles.title}>Add task</h1>
+      <main className={styles.container}>
+        <h1 className={styles.title}>Add task</h1>
 
-      {error && <p className={styles.error}>{error}</p>}
+        <ErrorMessage message={error} />
 
-      <form className={styles.card} onSubmit={handleSubmit}>
-        <div className={styles.field}>
-          <label htmlFor="title">Title</label>
-          <input
-            id="title"
-            className={styles.input}
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            placeholder="e.g. Buy groceries"
-            required
+        <form className={styles.card} onSubmit={handleSubmit}>
+          <FormField
+              label="Title"
+              id="title"
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="e.g. Buy groceries"
+              required
+              disabled={isSubmitting}
           />
-        </div>
 
-        <div className={styles.field}>
-          <label htmlFor="description">Description</label>
-          <textarea
-            id="description"
-            className={styles.textarea}
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            placeholder="Optional details..."
-          />
-        </div>
+          <div className={styles.field}>
+            <label htmlFor="description">Description</label>
+            <textarea
+                id="description"
+                className={styles.textarea}
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                placeholder="Optional details..."
+                disabled={isSubmitting}
+            />
+          </div>
 
-        <button className={styles.button} type="submit">
-          Save task
-        </button>
-      </form>
-    </main>
+          <Button type="submit" disabled={isSubmitting}>
+            {isSubmitting ? "Saving..." : "Save task"}
+          </Button>
+        </form>
+      </main>
   );
 }

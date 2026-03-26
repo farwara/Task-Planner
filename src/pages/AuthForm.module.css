@@ -1,4 +1,6 @@
 .container {
+  display: flex;
+  justify-content: center;
   max-width: 560px;
   margin: 0 auto;
   padding: 26px 16px;
@@ -11,6 +13,9 @@
   padding: 18px;
   display: grid;
   gap: 12px;
+
+  width: 100%;
+  max-width: 400px;
 }
 
 .title {
@@ -46,4 +51,15 @@
 .hint {
   font-size: 0.95rem;
   opacity: 0.85;
+}
+
+
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+  }
+
+  .card {
+    padding: 16px;
+  }
 }

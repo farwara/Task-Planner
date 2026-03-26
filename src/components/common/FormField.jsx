@@ -9,6 +9,8 @@ function FormField({
                        onChange,
                        placeholder,
                        error,
+                       required = false,
+                       disabled = false,
                    }) {
     return (
         <div className={styles.field}>
@@ -23,6 +25,8 @@ function FormField({
                 value={value}
                 onChange={onChange}
                 placeholder={placeholder}
+                required={required}
+                disabled={disabled}
             />
 
             <ErrorMessage message={error} />
@@ -31,4 +35,3 @@ function FormField({
 }
 
 export default FormField;
-

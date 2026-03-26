@@ -101,7 +101,14 @@ VITE_API_URL=https://novi-backend-api-xxxxx.ondigitalocean.app
 
 VITE_PROJECT_ID=YOUR_PROJECT_ID
 
+## Environment variables
 
+Create a `.env` file in the root of the project based on `.env.example`.
+
+Example:
+
+VITE_API_URL=https://novi-backend-api-xxxxx.ondigitalocean.app
+VITE_PROJECT_ID=YOUR_PROJECT_ID
 
 5. Start the development server
 

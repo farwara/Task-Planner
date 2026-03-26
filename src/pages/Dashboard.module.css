@@ -1,3 +1,8 @@
+.dashboard {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
 
 .container {
   max-width: 1100px;
@@ -50,6 +55,8 @@
   }
 
   .search {
+    width: 100%;
+    max-width: 500px;
     flex-basis: auto;
   }
 }

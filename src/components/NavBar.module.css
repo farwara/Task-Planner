@@ -1,3 +1,23 @@
+
+
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap; /* VERY IMPORTANT */
+  padding: 10px 16px;
+}
+
+.navbar__links {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.navbar__right {
+  margin-top: 8px;
+}
 .navbar {
   position: sticky;
   top: 0;
@@ -46,4 +66,31 @@
   padding: 8px 12px;
   border-radius: 10px;
   cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .inner {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .spacer {
+    display: none;
+  }
+
+  .user {
+    width: 100%;
+    order: 4;
+  }
+}
+
+@media (max-width: 420px) {
+  .inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .logout {
+    width: 100%;
+  }
 }

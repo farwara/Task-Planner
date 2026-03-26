@@ -2,14 +2,13 @@ import { useEffect, useMemo, useState } from "react";
 import { apiFetch } from "../api/api";
 import TaskCard from "../components/TaskCard";
 import ErrorMessage from "../components/common/ErrorMessage";
+import Loader from "../components/common/Loader";
 import styles from "./Dashboard.module.css";
 
 function Dashboard() {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-
-  // ✅ used for update effect (search)
   const [searchTerm, setSearchTerm] = useState("");
 
   async function loadTasks(signal) {
@@ -20,7 +19,6 @@ function Dashboard() {
       const data = await apiFetch("/api/tasks", { signal });
       setTasks(data ?? []);
     } catch (err) {
-      // ✅ ignore abort errors when component unmounts
       if (err?.name === "AbortError") return;
       setError(err?.message || "Failed to load tasks.");
     } finally {
@@ -28,20 +26,21 @@ function Dashboard() {
     }
   }
 
-  // ✅ Mounting useEffect #2 + ✅ Cleanup/unmount
   useEffect(() => {
     const controller = new AbortController();
     loadTasks(controller.signal);
 
-    return () => controller.abort(); // ✅ cleanup
+    return () => controller.abort();
   }, []);
 
-  // ✅ Mounting useEffect #3 (simple + defendable)
   useEffect(() => {
     document.title = "Task Planner | Dashboard";
   }, []);
 
-  // ✅ Update effect requirement: state change -> UI changes
+  useEffect(() => {
+    setError("");
+  }, [searchTerm]);
+
   const filteredTasks = useMemo(() => {
     const q = searchTerm.trim().toLowerCase();
     if (!q) return tasks;
@@ -51,9 +50,15 @@ function Dashboard() {
       const desc = (t.description || "").toLowerCase();
       return title.includes(q) || desc.includes(q);
     });
-  }, [tasks, searchTerm]); // updates when searchTerm changes
+  }, [tasks, searchTerm]);
 
-  if (loading) return <div className={styles.container}>Loading...</div>;
+  if (loading) {
+    return (
+        <main className={styles.container}>
+          <Loader text="Loading tasks..." />
+        </main>
+    );
+  }
 
   return (
       <main className={styles.container}>
@@ -71,16 +76,16 @@ function Dashboard() {
           />
         </div>
 
-        <div className={styles.grid}>
+        <section className={styles.grid}>
           {filteredTasks.map((task) => (
               <TaskCard
                   key={task.id}
                   task={task}
-                  reload={() => loadTasks()} // reload without signal OK
+                  reload={() => loadTasks()}
                   setError={setError}
               />
           ))}
-        </div>
+        </section>
       </main>
   );
 }
