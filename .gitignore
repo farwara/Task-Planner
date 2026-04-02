@@ -30,6 +30,6 @@ lerna-debug.log*
 # extra files that should not be submitted
 Task_Planner (2)/
 Task_Planner (2).zip
-img.png
+screenshots/add-task.png
 img_1.png
 img_2.png

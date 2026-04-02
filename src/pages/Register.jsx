@@ -23,8 +23,8 @@ function Register() {
       setIsSubmitting(true);
       await register(email, password);
       navigate("/login");
-    } catch (err) {
-      setError(err.message || "Registration failed");
+    } catch  {
+      setError( "Registration failed.Please try again");
     } finally {
       setIsSubmitting(false);
     }
